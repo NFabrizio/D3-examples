@@ -25,9 +25,8 @@
     const exteriorHeight = 500;
     const interiorWidth = exteriorWidth - padding.right - padding.left;
     const interiorHeight = exteriorHeight - padding.top - padding.bottom;
-    const barWidth = 50;
 
-    // Set variables for date calculations
+    // Set up parser for date calculations
     const parseDate = d3.time.format('%Y-%m-%d').parse;
 
     // Set range for x and y axes
@@ -46,11 +45,12 @@
                         .orient('left')
                         .ticks(5);
 
+    // Create SVG container
     const svgContainer = d3.select('.bar-graph').append('svg')
-                                            .attr('width', exteriorWidth)
-                                            .attr('height', exteriorHeight)
-                                          .append('g')
-                                            .attr('tansform', `translate(${padding.left}, ${padding.right})`);
+                                                  .attr('width', exteriorWidth)
+                                                  .attr('height', exteriorHeight)
+                                                .append('g')
+                                                  .attr('tansform', `translate(${padding.left}, ${padding.right})`);
 
     // Set the domain for the x axis by returning the date for each array element
     x.domain(countData.map(function(d) {
@@ -67,11 +67,6 @@
                   .attr('class', 'x axis')
                   .attr('transform', `translate(49, ${interiorHeight + padding.top})`)
                   .call(xAxis)
-                  // .selectAll('text')
-                  //   .style('text-anchor', 'end')
-                  //   .attr('dx', '-.8em')
-                  //   .attr('dy', '-.55em')
-                  //   .attr('transform', 'rotate(-90)')
                   .append('text')
                     .attr('x', interiorWidth/2)
                     .attr('y', padding.bottom)
@@ -100,9 +95,7 @@
                 .enter()
                 .append('rect')
                   .attr('class', 'bar')
-                  // .attr('x', function(d) { return (d._id * (barWidth + padding.right)) + (padding.left * 2); })
                   .attr('x', function(d) { return x(parseDate(d.date)) + 48; })
-                  // .attr('width', barWidth)
                   .attr('width', x.rangeBand())
                   .attr('y', function(d) { return y(d.count) + padding.top; })
                   .attr('height', function(d) { return interiorHeight - y(d.count); })
