@@ -5,7 +5,7 @@ simple sample data.
 Currently, the data can be displayed in bar graph format.
 
 ## Installation and Set Up
-Below are the instructions for installing this simple D3 example.
+Below are the instructions for installing this simple D3 example.  
 *These instructions are valid as of 2016.12.19*
 
 ### Environment Set Up
@@ -23,5 +23,5 @@ Below are the instructions for installing this simple D3 example.
       `git clone [clone-url-for-your-fork]`
       The URL should be in the format git@github.com:YourUsername/D3-examples.git
 2. Change to the directory in which you cloned this repository.
-3. Open the index.js file in your preferred web browser. You should see the D3 Examples page.
+3. Open the index.html file in your preferred web browser. You should see the D3 Examples page.  
   *This example is optimized for the Chrome web browser, so you may see issues using it with other browsers.*
