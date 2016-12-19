@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>D3 Examples</title>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="./countData.json"></script>
+  </head>
+  <body>
+    <h1>D3 Examples</h1>
+    <h2>Bar Graph</h2>
+    <div class="bar-graph"></div>
+  </body>
+  <script type="text/javascript">
+    console.log('countData', countData);
+    // Set margins
+    const padding = {
+      top: 10,
+      right: 10,
+      bottom: 50,
+      left: 30
+    };
+    // Set dimensions of svg container and interior with padding
+    const exteriorWidth = 960;
+    const exteriorHeight = 500;
+    const interiorWidth = exteriorWidth - padding.right - padding.left;
+    const interiorHeight = exteriorHeight - padding.top - padding.bottom;
+    const barWidth = 50;
+
+    // Set variables for date calculations
+    const parseDate = d3.time.format('%Y-%m-%d').parse;
+
+    // Set range for x and y axes
+    const x = d3.scale.ordinal()
+                      .rangeRoundBands([0, interiorWidth], 0.05);
+    const y = d3.scale.linear()
+                      .range([0, interiorHeight]);
+
+    // Set up x and y axes with scale and orientation
+    const xAxis = d3.svg.axis()
+                        .scale(x)
+                        .orient('bottom')
+                        .tickFormat(d3.time.format('%Y-%m-%d'));
+    const yAxis = d3.svg.axis()
+                        .scale(y)
+                        .orient('left')
+                        .ticks(5);
+
+    const svgContainer = d3.select('.bar-graph').append('svg')
+                                            .attr('width', exteriorWidth)
+                                            .attr('height', exteriorHeight)
+                                          .append('g')
+                                            .attr('tansform', `translate(${padding.left}, ${padding.right})`);
+
+    // Set the domain for the x axis by returning the date for each array element
+    x.domain(countData.map(function(d) {
+      return parseDate(d.date);
+    }));
+
+    // Set the domain for the y axis by starting at 0 and taking the max count value
+    y.domain([d3.max(countData, function(d) {
+      return d.count;
+    }), 0]);
+
+    // Set up the x-axis: move it down to the bottom of the container
+    svgContainer.append('g')
+                  .attr('class', 'x axis')
+                  .attr('transform', `translate(49, ${interiorHeight + padding.top})`)
+                  .call(xAxis)
+                  // .selectAll('text')
+                  //   .style('text-anchor', 'end')
+                  //   .attr('dx', '-.8em')
+                  //   .attr('dy', '-.55em')
+                  //   .attr('transform', 'rotate(-90)')
+                  .append('text')
+                    .attr('x', interiorWidth/2)
+                    .attr('y', padding.bottom)
+                    .attr('dx', '1em')
+                    .style('text-anchor', 'middle')
+                    .text('Dates');
+
+    // Set up the y-axis label
+    svgContainer.append('text')
+                  .attr('transform', 'rotate(-90)')
+                  .attr('y', 0)
+                  .attr('x', -interiorHeight/2)
+                  .attr('dy', '1em')
+                  .style('text-anchor', 'middle')
+                  .text('# of Records');
+
+    // Set up the y-axis with tick marks for count
+    svgContainer.append('g')
+                  .attr('class', 'y axis')
+                  .attr('transform', `translate(${padding.left + 25}, ${padding.top})`)
+                  .call(yAxis);
+
+    // Create the bars for the graph
+    svgContainer.selectAll('bar')
+                .data(countData)
+                .enter()
+                .append('rect')
+                  .attr('class', 'bar')
+                  // .attr('x', function(d) { return (d._id * (barWidth + padding.right)) + (padding.left * 2); })
+                  .attr('x', function(d) { return x(parseDate(d.date)) + 48; })
+                  // .attr('width', barWidth)
+                  .attr('width', x.rangeBand())
+                  .attr('y', function(d) { return y(d.count) + padding.top; })
+                  .attr('height', function(d) { return interiorHeight - y(d.count); })
+                  .style('fill', 'steelblue');
+  </script>
+
+</html>
