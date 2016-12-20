@@ -50,10 +50,10 @@
 
     // Create SVG container
     const svgBarContainer = d3.select('.bar-graph').append('svg')
-                                                  .attr('width', exteriorWidth)
-                                                  .attr('height', exteriorHeight)
-                                                .append('g')
-                                                  .attr('tansform', `translate(${padding.left}, ${padding.right})`);
+                                                      .attr('width', exteriorWidth)
+                                                      .attr('height', exteriorHeight)
+                                                    .append('g')
+                                                      .attr('tansform', `translate(${padding.left}, ${padding.right})`);
 
     // Set the domain for the x axis by returning the date for each array element
     x.domain(countData.map(function(d) {
@@ -67,41 +67,41 @@
 
     // Set up the x-axis: move it down to the bottom of the container
     svgBarContainer.append('g')
-                  .attr('class', 'x axis')
-                  .attr('transform', `translate(49, ${interiorHeight + padding.top})`)
-                  .call(xAxis)
-                  .append('text')
-                    .attr('x', interiorWidth/2)
-                    .attr('y', padding.bottom)
-                    .attr('dx', '1em')
-                    .style('text-anchor', 'middle')
-                    .text('Dates');
+                      .attr('class', 'x axis')
+                      .attr('transform', `translate(49, ${interiorHeight + padding.top})`)
+                      .call(xAxis)
+                    .append('text')
+                      .attr('x', interiorWidth/2)
+                      .attr('y', padding.bottom)
+                      .attr('dx', '1em')
+                      .style('text-anchor', 'middle')
+                      .text('Dates');
 
     // Set up the y-axis label
     svgBarContainer.append('text')
-                  .attr('transform', 'rotate(-90)')
-                  .attr('y', 0)
-                  .attr('x', -interiorHeight/2)
-                  .attr('dy', '1em')
-                  .style('text-anchor', 'middle')
-                  .text('# of Records');
+                      .attr('transform', 'rotate(-90)')
+                      .attr('y', 0)
+                      .attr('x', -interiorHeight/2)
+                      .attr('dy', '1em')
+                      .style('text-anchor', 'middle')
+                      .text('# of Records');
 
     // Set up the y-axis with tick marks for count
     svgBarContainer.append('g')
-                  .attr('class', 'y axis')
-                  .attr('transform', `translate(${padding.left + 25}, ${padding.top})`)
-                  .call(yAxis);
+                      .attr('class', 'y axis')
+                      .attr('transform', `translate(${padding.left + 25}, ${padding.top})`)
+                      .call(yAxis);
 
     // Create the bars for the graph
     svgBarContainer.selectAll('bar')
-                .data(countData)
-                .enter()
-                .append('rect')
-                  .attr('class', 'bar')
-                  .attr('x', function(d) { return x(parseDate(d.date)) + 49; })
-                  .attr('width', x.rangeBand())
-                  .attr('y', function(d) { return y(d.count) + padding.top - 1; })
-                  .attr('height', function(d) { return interiorHeight - y(d.count); });
+                    .data(countData)
+                    .enter()
+                    .append('rect')
+                      .attr('class', 'bar')
+                      .attr('x', function(d) { return x(parseDate(d.date)) + 49; })
+                      .attr('width', x.rangeBand())
+                      .attr('y', function(d) { return y(d.count) + padding.top - 1; })
+                      .attr('height', function(d) { return interiorHeight - y(d.count); });
 
     // Set up line connector for graph
     const valueline = d3.svg.line()
@@ -110,53 +110,53 @@
 
     // Create SVG container
     const svgLineContainer = d3.select('.line-graph').append('svg')
-                                                  .attr('width', exteriorWidth)
-                                                  .attr('height', exteriorHeight)
-                                                .append('g')
-                                                  .attr('tansform', `translate(${padding.left}, ${padding.right})`);
+                                                        .attr('width', exteriorWidth)
+                                                        .attr('height', exteriorHeight)
+                                                      .append('g')
+                                                        .attr('tansform', `translate(${padding.left}, ${padding.right})`);
 
     // Set up the x-axis: move it down to the bottom of the container
     svgLineContainer.append('g')
-                  .attr('class', 'x axis')
-                  .attr('transform', `translate(49, ${interiorHeight + padding.top})`)
-                  .call(xAxis)
-                  .append('text')
-                    .attr('x', interiorWidth/2)
-                    .attr('y', padding.bottom)
-                    .attr('dx', '1em')
-                    .style('text-anchor', 'middle')
-                    .text('Dates');
+                      .attr('class', 'x axis')
+                      .attr('transform', `translate(49, ${interiorHeight + padding.top})`)
+                      .call(xAxis)
+                    .append('text')
+                      .attr('x', interiorWidth/2)
+                      .attr('y', padding.bottom)
+                      .attr('dx', '1em')
+                      .style('text-anchor', 'middle')
+                      .text('Dates');
 
     // Set up the y-axis label
     svgLineContainer.append('text')
-                  .attr('transform', 'rotate(-90)')
-                  .attr('y', 0)
-                  .attr('x', -interiorHeight/2)
-                  .attr('dy', '1em')
-                  .style('text-anchor', 'middle')
-                  .text('# of Records');
+                      .attr('transform', 'rotate(-90)')
+                      .attr('y', 0)
+                      .attr('x', -interiorHeight/2)
+                      .attr('dy', '1em')
+                      .style('text-anchor', 'middle')
+                      .text('# of Records');
 
     // Set up the y-axis with tick marks for count
     svgLineContainer.append('g')
-                  .attr('class', 'y axis')
-                  .attr('transform', `translate(${padding.left + 25}, ${padding.top})`)
-                  .call(yAxis);
+                      .attr('class', 'y axis')
+                      .attr('transform', `translate(${padding.left + 25}, ${padding.top})`)
+                      .call(yAxis);
 
     // Add the valueline path.
     svgLineContainer.append("path")
-        .attr("class", "line")
-        .attr('transform', `translate(${padding.left + 18}, 0)`)
-        .attr("d", valueline(countData));
+                      .attr("class", "line")
+                      .attr('transform', `translate(${padding.left + 73}, 0)`)
+                      .attr("d", valueline(countData));
 
     // Create the dots for the graph
     svgLineContainer.selectAll('dot')
-                .data(countData)
-                .enter()
-                .append('circle')
-                  .attr('class', 'dot')
-                  .attr('r', 5)
-                  .attr('cx', function(d) { return x(parseDate(d.date)) + 48; })
-                  .attr('cy', function(d) { return y(d.count) + padding.top; });
+                    .data(countData)
+                    .enter()
+                    .append('circle')
+                      .attr('class', 'dot')
+                      .attr('r', 5)
+                      .attr('cx', function(d) { return x(parseDate(d.date)) + 103; })
+                      .attr('cy', function(d) { return y(d.count) + padding.top; });
   </script>
 
 </html>
