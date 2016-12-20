@@ -77,20 +77,21 @@
                       .style('text-anchor', 'middle')
                       .text('Dates');
 
-    // Set up the y-axis label
-    svgBarContainer.append('text')
-                      .attr('transform', 'rotate(-90)')
-                      .attr('y', 0)
-                      .attr('x', -interiorHeight/2)
-                      .attr('dy', '1em')
-                      .style('text-anchor', 'middle')
-                      .text('# of Records');
-
-    // Set up the y-axis with tick marks for count
+    // Set up the y-axis with tick marks for count and y-axis label
     svgBarContainer.append('g')
                       .attr('class', 'y axis')
                       .attr('transform', `translate(${padding.left + 25}, ${padding.top})`)
-                      .call(yAxis);
+                      .call(yAxis)
+                      .append('text')
+                        .attr('transform', 'rotate(-90)')
+                        .attr('y', -50)
+                        .attr('x', -interiorHeight/2)
+                        .attr('dy', '1em')
+                        .style('text-anchor', 'middle')
+                        .text('# of Records');
+
+    // y-axis width
+    const yWidth = d3.select('.y').node().getBBox();
 
     // Create the bars for the graph
     svgBarContainer.selectAll('bar')
@@ -98,7 +99,7 @@
                     .enter()
                     .append('rect')
                       .attr('class', 'bar')
-                      .attr('x', function(d) { return x(parseDate(d.date)) + 49; })
+                      .attr('x', function(d) { return x(parseDate(d.date)) + yWidth.width + 1; })
                       .attr('width', x.rangeBand())
                       .attr('y', function(d) { return y(d.count) + padding.top - 1; })
                       .attr('height', function(d) { return interiorHeight - y(d.count); });
@@ -127,20 +128,18 @@
                       .style('text-anchor', 'middle')
                       .text('Dates');
 
-    // Set up the y-axis label
-    svgLineContainer.append('text')
-                      .attr('transform', 'rotate(-90)')
-                      .attr('y', 0)
-                      .attr('x', -interiorHeight/2)
-                      .attr('dy', '1em')
-                      .style('text-anchor', 'middle')
-                      .text('# of Records');
-
-    // Set up the y-axis with tick marks for count
+    // Set up the y-axis with tick marks for count and y-axis label
     svgLineContainer.append('g')
                       .attr('class', 'y axis')
                       .attr('transform', `translate(${padding.left + 25}, ${padding.top})`)
-                      .call(yAxis);
+                      .call(yAxis)
+                      .append('text')
+                        .attr('transform', 'rotate(-90)')
+                        .attr('y', -50)
+                        .attr('x', -interiorHeight/2)
+                        .attr('dy', '1em')
+                        .style('text-anchor', 'middle')
+                        .text('# of Records');
 
     // Add the valueline path.
     svgLineContainer.append("path")
