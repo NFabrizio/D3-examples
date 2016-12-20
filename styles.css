@@ -6,6 +6,9 @@ path {
   stroke-width: 3;
   fill: none;
 }
+.bar {
+  fill: steelblue;
+}
 .axis path,
 .axis line {
   fill: none;

@@ -101,8 +101,7 @@
                   .attr('x', function(d) { return x(parseDate(d.date)) + 49; })
                   .attr('width', x.rangeBand())
                   .attr('y', function(d) { return y(d.count) + padding.top - 1; })
-                  .attr('height', function(d) { return interiorHeight - y(d.count); })
-                  .style('fill', 'steelblue');
+                  .attr('height', function(d) { return interiorHeight - y(d.count); });
 
     // Set up line connector for graph
     const valueline = d3.svg.line()
@@ -147,9 +146,6 @@
     svgLineContainer.append("path")
         .attr("class", "line")
         .attr('transform', `translate(${padding.left + 18}, 0)`)
-        .attr('fill', 'none')
-        .attr('stroke', 'steelblue')
-        .attr('stroke-width', 3)
         .attr("d", valueline(countData));
 
     // Create the dots for the graph
