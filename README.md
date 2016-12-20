@@ -2,7 +2,7 @@
 Some examples of how to use the D3.js library to create data visualizations with
 simple sample data.
 
-Currently, the data can be displayed in bar graph format.
+Currently, the data can be displayed in either bar graph or line graph format.
 
 ## Installation and Set Up
 Below are the instructions for installing this simple D3 example.  
