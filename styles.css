@@ -1,0 +1,15 @@
+body {
+  cont: 12px Arial;
+}
+path {
+  stroke: steelblue;
+  stroke-width: 3;
+  fill: none;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 2;
+  shape-rendering: crispEdges;
+}

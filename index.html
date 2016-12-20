@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>D3 Examples</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="./countData.json"></script>
   </head>
@@ -97,9 +98,9 @@
                 .enter()
                 .append('rect')
                   .attr('class', 'bar')
-                  .attr('x', function(d) { return x(parseDate(d.date)) + 48; })
+                  .attr('x', function(d) { return x(parseDate(d.date)) + 49; })
                   .attr('width', x.rangeBand())
-                  .attr('y', function(d) { return y(d.count) + padding.top; })
+                  .attr('y', function(d) { return y(d.count) + padding.top - 1; })
                   .attr('height', function(d) { return interiorHeight - y(d.count); })
                   .style('fill', 'steelblue');
 
